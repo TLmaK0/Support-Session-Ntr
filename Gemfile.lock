@@ -1,0 +1,18 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    configuration (1.2.0)
+    launchy (0.4.0)
+      configuration (>= 0.0.5)
+      rake (>= 0.8.1)
+    oauth (0.4.4)
+    rake (0.8.7)
+    wxruby-ruby19 (2.0.1-x86-mingw32)
+
+PLATFORMS
+  x86-mingw32
+
+DEPENDENCIES
+  launchy
+  oauth
+  wxruby-ruby19 (= 2.0.1)
