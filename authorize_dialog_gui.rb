@@ -4,9 +4,11 @@
 # this class and extend its behaviour there.  
 #
 # Source file: authorize_dialog_gui.xrc 
-# Generated at: 2011-04-29 23:45:59 +0200
+# Generated at: 2011-05-09 20:24:55 +0200
 
 class AuthorizeDialog < Wx::Dialog
+	
+	attr_reader :m_button1, :m_textctrl1, :m_button2
 	
 	def initialize(parent = nil)
 		super()
@@ -27,6 +29,9 @@ class AuthorizeDialog < Wx::Dialog
 			end
 		end
 		
+		@m_button1 = finder.call("m_button1")
+		@m_textctrl1 = finder.call("m_textCtrl1")
+		@m_button2 = finder.call("m_button2")
 		if self.class.method_defined? "on_init"
 			self.on_init()
 		end

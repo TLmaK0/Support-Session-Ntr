@@ -2,11 +2,38 @@
 <resource xmlns="http://www.wxwindows.org/wxxrc" version="2.3.0.1">
 	<object class="wxDialog" name="MyDialog3" subclass="AuthorizeDialog">
 		<style>wxDEFAULT_DIALOG_STYLE</style>
-		<size>263,121</size>
+		<size>149,153</size>
 		<title></title>
 		<centered>1</centered>
 		<object class="wxBoxSizer">
 			<orient>wxVERTICAL</orient>
+			<object class="sizeritem">
+				<option>0</option>
+				<flag>wxALL</flag>
+				<border>5</border>
+				<object class="wxButton" name="m_button1">
+					<label>Authorize Application</label>
+					<default>0</default>
+				</object>
+			</object>
+			<object class="sizeritem">
+				<option>0</option>
+				<flag>wxALL</flag>
+				<border>5</border>
+				<object class="wxTextCtrl" name="m_textCtrl1">
+					<value>verify code</value>
+					<maxlength>0</maxlength>
+				</object>
+			</object>
+			<object class="sizeritem">
+				<option>0</option>
+				<flag>wxALL</flag>
+				<border>5</border>
+				<object class="wxButton" name="m_button2">
+					<label>Verify</label>
+					<default>0</default>
+				</object>
+			</object>
 		</object>
 	</object>
 </resource>
