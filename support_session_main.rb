@@ -71,7 +71,8 @@ class SupportSessionMain < App
     result = @access_token.post("/support_sessions.xml", support_session.to_json, {'Content-type' => 'application/json' })
     result = @access_token.get("#{result["Location"]}.json")
     
-    $stderr.puts JSON.parse(result.body)["support_session"]["code"]
+    code = JSON.parse(result.body)["support_session"]["code"]
+    @ss_win.m_textctrl2.value = code
 
   end
 end
