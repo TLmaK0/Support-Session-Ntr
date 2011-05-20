@@ -4,11 +4,12 @@
 # this class and extend its behaviour there.  
 #
 # Source file: support_session_gui.xrc 
-# Generated at: 2011-04-29 23:39:55 +0200
+# Generated at: 2011-05-20 21:44:52 +0200
 
 class SupportSessionGUI < Wx::Frame
 	
-	attr_reader :m_panel4, :m_statictext1, :m_textctrl2, :m_button2
+	attr_reader :m_panel4, :m_statictext1, :m_textctrl2, :m_button2,
+              :m_textctrl21, :m_button21, :m_hyperlink1
 	
 	def initialize(parent = nil)
 		super()
@@ -33,6 +34,9 @@ class SupportSessionGUI < Wx::Frame
 		@m_statictext1 = finder.call("m_staticText1")
 		@m_textctrl2 = finder.call("m_textCtrl2")
 		@m_button2 = finder.call("m_button2")
+		@m_textctrl21 = finder.call("m_textCtrl21")
+		@m_button21 = finder.call("m_button21")
+		@m_hyperlink1 = finder.call("m_hyperlink1")
 		if self.class.method_defined? "on_init"
 			self.on_init()
 		end

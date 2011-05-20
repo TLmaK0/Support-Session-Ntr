@@ -2,14 +2,16 @@
 require "wx"
 require "oauth"
 require "launchy"
+require "json"
 
 include Wx
 
 require_relative "support_session_gui.rb"
 require_relative "authorize_dialog_gui.rb"
-require_relative "support_session.rb"
 
 class SupportSessionMain < App
+  URL_BASE_RC = "http://free.ntrglobal.com/main2/ntradmin.web.services/remotecontrol/downloadoperatorexe/?lang=en&code="
+
   def on_init
     @consumer=OAuth::Consumer.new( "oSvqWJxkgZ2J66LM9gqo","ZhJc8EkSN8k2hk0FcyKNIfCSIrx3lVcahBSQpLDJ", {
       :site=>"http://apifree.ntrglobal.com"
@@ -39,6 +41,7 @@ class SupportSessionMain < App
     @ss_win = SupportSessionGUI.new
     @ss_win.show() 
     @ss_win.m_button2.evt_left_down() { |event| generate_session_code }
+    @ss_win.m_button21.evt_left_down() { |event| send_email }
   end
   
   def open_authorize_window
@@ -62,18 +65,33 @@ class SupportSessionMain < App
     end  
   end
  
-  
+  def send_email
+    @support_session ={
+      "support_session" => {
+        "customer_mail" => @ss_win.m_textctrl21.get_value
+      }
+    }
+    
+    result = @access_token.put(@support_session_url, @support_session.to_json, {'Content-type' => 'application/json' })
+  end
   
   def generate_session_code
-    support_session = SupportSession.new
-    support_session.customer = "test"
-    support_session.language = "en"
-    result = @access_token.post("/support_sessions.xml", support_session.to_json, {'Content-type' => 'application/json' })
-    result = @access_token.get("#{result["Location"]}.json")
+    @support_session =  {
+      "support_session" => {
+        "customer" => "test", 
+        "language" => "en"
+      }
+    }.to_json
     
-    code = JSON.parse(result.body)["support_session"]["code"]
+    result = @access_token.post("/support_sessions.json", @support_session, {'Content-type' => 'application/json' })
+    @support_session_url = "#{result["Location"]}"
+    result = @access_token.get("#{@support_session_url}.json")
+    
+    @support_session = JSON.parse(result.body)
+    
+    code = @support_session["support_session"]["code"]
     @ss_win.m_textctrl2.value = code
-
+    @ss_win.m_hyperlink1.url = "#{URL_BASE_RC}#{code}"
   end
 end
 
