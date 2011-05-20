@@ -65,9 +65,14 @@ class SupportSessionMain < App
   
   
   def generate_session_code
-    result = @access_token.post("/support_sessions.xml", "", {'Content-type' => 'application/xml' })
-    puts result.body
-    puts result.inspect
+    support_session = SupportSession.new
+    support_session.customer = "test"
+    support_session.language = "en"
+    result = @access_token.post("/support_sessions.xml", support_session.to_json, {'Content-type' => 'application/json' })
+    result = @access_token.get("#{result["Location"]}.json")
+    
+    $stderr.puts JSON.parse(result.body)["support_session"]["code"]
+
   end
 end
 
