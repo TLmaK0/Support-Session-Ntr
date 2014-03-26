@@ -13,7 +13,7 @@ class SupportSessionMain < App
   URL_BASE_RC = "http://free.ntrglobal.com/main2/ntradmin.web.services/remotecontrol/downloadoperatorexe/?lang=en&code="
 
   def on_init
-    @consumer=OAuth::Consumer.new( "oSvqWJxkgZ2J66LM9gqo","ZhJc8EkSN8k2hk0FcyKNIfCSIrx3lVcahBSQpLDJ", {
+    @consumer=OAuth::Consumer.new( "moG9ePnMKDt6m4CmtmuH","lKhGVemDACIDY45F5xs8m8XYBRrgpFaHfgeStXUG", {
       :site=>"http://apifree.ntrglobal.com"
     })
 
@@ -63,6 +63,8 @@ class SupportSessionMain < App
     File.open('data.txt', 'w+') do |f|  
       Marshal.dump(@access_token, f)  
     end  
+
+    open_support_session_window
   end
  
   def send_email
@@ -84,6 +86,7 @@ class SupportSessionMain < App
     }.to_json
     
     result = @access_token.post("/support_sessions.json", @support_session, {'Content-type' => 'application/json' })
+$stderr.puts result
     @support_session_url = "#{result["Location"]}"
     result = @access_token.get("#{@support_session_url}.json")
     
